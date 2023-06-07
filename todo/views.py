@@ -25,6 +25,7 @@ class register_user(APIView):
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import authentication_classes,permission_classes
+from datetime import datetime
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
@@ -66,12 +67,15 @@ def create(request):
         tags=set(tags)
         tags=list(tags)
         request.data['Tags']=','.join([str(elem) for elem in tags])
+        
     serialized=taskSerializers(data=request.data)
-
+    print(request.data['Due_date'])
+    if(request.data['Due_date'] and datetime.strptime(request.data['Due_date'],'%Y-%m-%d')<datetime.now()):
+        return Response({'Status':400,'message':"Invalid Due Date"})
+    
     if(serialized.is_valid()):
         serialized.save()
-    else:
-        print(serialized.errors)
+    
     return Response(serialized.data)
 
 @api_view(['POST'])
@@ -80,7 +84,8 @@ def create(request):
 def update(request,pk):
     tasks=Task.objects.get(id=pk)
     
-    if not request.user.is_superuser and 'Timestamp' in request.data:
+    print(request.user, ('Timestamp' in request.data))
+    if( (request.user.is_superuser==False) and ('Timestamp' in request.data)):
         return Response({'status':403,'message':'User cannot modify timestamps'})
     if('Tags' in request.data):
         tags=request.data["Tags"]
