@@ -8,4 +8,5 @@ urlpatterns = [
     path("create/",views.create,name="create"),
     path("update/<str:pk>/",views.update,name="update"),
     path("delete/<str:pk>/",views.delete,name="delete"),
+    path("register/",views.register_user.as_view(),name="register"),
 ]
