@@ -84,7 +84,6 @@ def create(request):
 def update(request,pk):
     tasks=Task.objects.get(id=pk)
     
-    print(request.user, ('Timestamp' in request.data))
     if( (request.user.is_superuser==False) and ('Timestamp' in request.data)):
         return Response({'status':403,'message':'User cannot modify timestamps'})
     if('Tags' in request.data):
