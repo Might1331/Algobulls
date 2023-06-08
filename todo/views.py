@@ -28,8 +28,6 @@ from rest_framework.decorators import authentication_classes,permission_classes
 from datetime import datetime
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def home(request):
     api_urls={
         'List One Task':'/read',
