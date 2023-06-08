@@ -37,6 +37,7 @@ def home(request):
         'Create Task':'/create',
         'Update Task':'/update/<str:pk>',
         'Delete Task':'/delete/<str:pk>',
+        'Register user':'register/'
     }
     return Response(api_urls)
 
