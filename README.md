@@ -1,6 +1,9 @@
 # Algobulls
 Todolist backend, a Django Project
 
+### Hosted on pythonanywhere.com
+Head over to https://might1331.pythonanywhere.com/admin/login/?next=/admin/ to check the login page.
+
 ### Setup
 To get this repository, run the following command inside your git enabled terminal
 ```bash
